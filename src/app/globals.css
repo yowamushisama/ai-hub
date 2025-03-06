@@ -2,20 +2,376 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import fonts */
+
+/*@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap");
+*/
 :root {
+  /* Base colors */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1a2e;
+
+  /* Primary colors - Modern Electric Blue */
+  --primary-50: #edfaff;
+  --primary-100: #d6f2ff;
+  --primary-200: #b5e8ff;
+  --primary-300: #85d9ff;
+  --primary-400: #45bdff;
+  --primary-500: #1a97ff;
+  --primary-600: #0072ff;
+  --primary-700: #0054ef;
+  --primary-800: #0945c0;
+  --primary-900: #0c3b94;
+  --primary-950: #0a1f54;
+
+  /* Secondary colors - Rich Purple */
+  --secondary-50: #f4f1ff;
+  --secondary-100: #ebe5ff;
+  --secondary-200: #d9ceff;
+  --secondary-300: #bea6ff;
+  --secondary-400: #9f75ff;
+  --secondary-500: #843dff;
+  --secondary-600: #7916ff;
+  --secondary-700: #6b04fd;
+  --secondary-800: #5a03d5;
+  --secondary-900: #4b05ad;
+  --secondary-950: #2c0076;
+
+  /* Accent colors - Vivid Coral */
+  --accent-50: #fff1f0;
+  --accent-100: #ffe0dd;
+  --accent-200: #ffc5bf;
+  --accent-300: #ff9f95;
+  --accent-400: #ff6b5d;
+  --accent-500: #ff3b28;
+  --accent-600: #ff1800;
+  --accent-700: #d41000;
+  --accent-800: #ae0d00;
+  --accent-900: #900b00;
+  --accent-950: #520600;
+
+  /* Neutral colors - Cool Gray */
+  --neutral-50: #f8fafc;
+  --neutral-100: #f1f5f9;
+  --neutral-200: #e2e8f0;
+  --neutral-300: #cbd5e1;
+  --neutral-400: #94a3b8;
+  --neutral-500: #64748b;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1e293b;
+  --neutral-900: #0f172a;
+  --neutral-950: #020617;
+
+  /* Deep rich backgrounds */
+  --rich-black: #0a0b0f;
+  --deep-space: #111216;
+  --midnight-blue: #1a1b25;
+
+  /* Glowing accents */
+  --neon-blue: #00f0ff;
+  --electric-purple: #9d00ff;
+  --cosmic-purple: #6e00ff;
+
+  /* Success colors - Emerald */
+  --success-50: #ecfdf5;
+  --success-500: #10b981;
+  --success-900: #064e3b;
+
+  /* Warning colors - Amber */
+  --warning-50: #fffbeb;
+  --warning-500: #f59e0b;
+  --warning-900: #78350f;
+
+  /* Error colors - Rose */
+  --error-50: #fff1f2;
+  --error-500: #f43f5e;
+  --error-900: #881337;
+
+  /* Surface colors with subtle blue tint */
+  --surface-50: #fbfcff;
+  --surface-100: #f8faff;
+  --surface-200: #f3f6ff;
+  --surface-300: #e8edff;
+  --surface-400: #dde3ff;
+
+  /* Gradient definitions */
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--primary-600),
+    var(--primary-400)
+  );
+  --gradient-secondary: linear-gradient(
+    135deg,
+    var(--secondary-600),
+    var(--secondary-400)
+  );
+  --gradient-accent: linear-gradient(
+    135deg,
+    var(--accent-500),
+    var(--accent-400)
+  );
+  --gradient-blue-purple: linear-gradient(
+    135deg,
+    var(--primary-600),
+    var(--secondary-500)
+  );
+  --gradient-sunset: linear-gradient(
+    135deg,
+    var(--accent-500),
+    var(--secondary-500)
+  );
+  --gradient-ocean: linear-gradient(135deg, var(--primary-400), #0891b2);
+  --gradient-aurora: linear-gradient(
+    135deg,
+    var(--primary-500),
+    var(--secondary-400),
+    var(--accent-400)
+  );
+  --gradient-cosmic: linear-gradient(
+    135deg,
+    var(--neon-blue),
+    var(--cosmic-purple)
+  );
+  --gradient-nebula: linear-gradient(
+    135deg,
+    var(--primary-500),
+    var(--secondary-500),
+    var(--accent-500)
+  );
+
+  /* Glass effects */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+
+  /* Typography */
+  --font-primary: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --font-display: "Plus Jakarta Sans", var(--font-primary);
+  --font-mono: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, monospace;
+  --font-cursive: "Caveat", cursive;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--neutral-950);
+    --foreground: var(--neutral-50);
+
+    /* Surface colors in dark mode with subtle transparency */
+    --surface-50: rgba(15, 23, 42, 0.8);
+    --surface-100: rgba(30, 41, 59, 0.8);
+    --surface-200: rgba(51, 65, 85, 0.8);
+    --surface-300: rgba(71, 85, 105, 0.8);
+    --surface-400: rgba(100, 116, 139, 0.8);
+
+    /* Glass effect modifications for dark mode */
+    --glass-bg: rgba(0, 0, 0, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.1);
   }
 }
 
+/* Base styles */
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Modern utility classes */
+@layer utilities {
+  /* Text gradients */
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-secondary {
+    background: var(--gradient-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-cosmic {
+    background: var(--gradient-cosmic);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Background gradients */
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .bg-gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+
+  .bg-gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .bg-gradient-blue-purple {
+    background: var(--gradient-blue-purple);
+  }
+
+  .bg-gradient-sunset {
+    background: var(--gradient-sunset);
+  }
+
+  .bg-gradient-ocean {
+    background: var(--gradient-ocean);
+  }
+
+  .bg-gradient-aurora {
+    background: var(--gradient-aurora);
+  }
+
+  .bg-gradient-cosmic {
+    background: var(--gradient-cosmic);
+  }
+
+  .bg-gradient-nebula {
+    background: var(--gradient-nebula);
+  }
+
+  /* Rich dark backgrounds */
+  .bg-rich-dark {
+    background-color: var(--rich-black);
+  }
+
+  .bg-deep-space {
+    background-color: var(--deep-space);
+  }
+
+  .bg-midnight {
+    background-color: var(--midnight-blue);
+  }
+
+  /* Glassmorphism */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .cosmic-blur {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+
+  /* Modern hover effects */
+  .hover-lift {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: 0 0 20px var(--primary-400);
+  }
+
+  .glow-secondary {
+    box-shadow: 0 0 20px var(--secondary-400);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px var(--accent-400);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  .glow-cosmic {
+    box-shadow: 0 0 30px var(--neon-blue), 0 0 60px var(--cosmic-purple);
+  }
+
+  /* Special text effects */
+  .magic-text {
+    font-family: var(--font-cursive);
+    animation: floatText 3s ease-in-out infinite;
+  }
+}
+
+/* Animations */
+@keyframes floatText {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-4deg);
+  }
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.8;
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes gradient-xy {
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes bounce-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-gradient-xy {
+  animation: gradient-xy 15s ease infinite;
+  background-size: 400% 400%;
+}
+
+.animate-sparkle {
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
 }

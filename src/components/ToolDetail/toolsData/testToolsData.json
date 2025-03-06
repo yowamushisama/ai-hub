@@ -1,0 +1,171 @@
+{
+  "id": "blogTitleGen001",
+  "rows": [
+    {
+      "fields": [
+        {
+          "icon": "Target",
+          "name": "keywords",
+          "rows": 3,
+          "size": "h-20",
+          "type": "textarea",
+          "label": "What's your blog post about?",
+          "placeholder": "E.g., 'Effective remote team management strategies' or 'Sustainable fashion trends 2025'"
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "icon": "Target",
+          "name": "keywords",
+          "rows": 3,
+          "size": "h-20",
+          "type": "textarea",
+          "label": "What's your blog post about?",
+          "placeholder": "E.g., 'Effective remote team management strategies' or 'Sustainable fashion trends 2025'"
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "icon": "Sparkles",
+          "name": "tone",
+          "type": "dropdown",
+          "label": "Writing Style & Tone",
+          "options": [
+            {
+              "id": "professional",
+              "icon": "👔",
+              "label": "Professional",
+              "description": "Formal and business-oriented tone"
+            },
+            {
+              "id": "casual",
+              "icon": "😊",
+              "label": "Casual",
+              "description": "Friendly and conversational style"
+            },
+            {
+              "id": "persuasive",
+              "icon": "🎯",
+              "label": "Persuasive",
+              "description": "Compelling and action-oriented"
+            },
+            {
+              "id": "informative",
+              "icon": "📚",
+              "label": "Informative",
+              "description": "Educational and detailed approach"
+            }
+          ]
+        },
+        {
+          "name": "titleLength",
+          "type": "buttonGroup",
+          "label": "Title Length",
+          "options": [
+            {
+              "id": "short",
+              "label": "Short",
+              "words": "5-8"
+            },
+            {
+              "id": "medium",
+              "label": "Medium",
+              "words": "8-12"
+            },
+            {
+              "id": "long",
+              "label": "Long",
+              "words": "12-15"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "icon": "Building2",
+          "name": "industry",
+          "type": "dropdown",
+          "label": "Target Industry",
+          "options": [
+            {
+              "id": "technology",
+              "label": "Technology"
+            },
+            {
+              "id": "marketing",
+              "label": "Marketing"
+            },
+            {
+              "id": "healthcare",
+              "label": "Healthcare"
+            },
+            {
+              "id": "finance",
+              "label": "Finance"
+            },
+            {
+              "id": "education",
+              "label": "Education"
+            },
+            {
+              "id": "ecommerce",
+              "label": "E-commerce"
+            },
+            {
+              "id": "real_estate",
+              "label": "Real Estate"
+            },
+            {
+              "id": "travel",
+              "label": "Travel"
+            },
+            {
+              "id": "food_beverage",
+              "label": "Food & Beverage"
+            },
+            {
+              "id": "fashion",
+              "label": "Fashion"
+            }
+          ]
+        },
+        {
+          "name": "titleCount",
+          "type": "buttonGroup",
+          "label": "Number of Variations",
+          "options": [
+            {
+              "label": "3 titles",
+              "value": 3
+            },
+            {
+              "label": "5 titles",
+              "value": 5
+            },
+            {
+              "label": "10 titles",
+              "value": 10
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "category": "Blog Tools",
+  "formTitle": "AI Blog Title Generator",
+  "headerIcon": "PenTool",
+  "description": "Create engaging, SEO-optimized titles in seconds",
+  "subcategory": "Title Generation",
+  "submitButton": {
+    "icon": "Wand2",
+    "label": "Generate AI-Powered Titles",
+    "loadingIcon": "RefreshCw",
+    "loadingLabel": "Generating Titles..."
+  }
+}

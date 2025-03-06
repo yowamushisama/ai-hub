@@ -1,0 +1,121 @@
+{
+  "id": "blogTitleGen001",
+  "category": "Blog Tools",
+  "subcategory": "Title Generation",
+  "formTitle": "AI Blog Title Generator",
+  "headerIcon": "PenTool",
+  "description": "Create engaging, SEO-optimized titles in seconds",
+  "rows": [
+    {
+      "fields": [
+        {
+          "type": "textarea",
+          "name": "keywords",
+          "label": "What's your blog post about?",
+          "placeholder": "E.g., 'Effective remote team management strategies' or 'Sustainable fashion trends 2025'",
+          "size": "h-20",
+          "rows": 3,
+          "icon": "Target"
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "type": "textarea",
+          "name": "keywords",
+          "label": "What's your blog post about?",
+          "placeholder": "E.g., 'Effective remote team management strategies' or 'Sustainable fashion trends 2025'",
+          "size": "h-20",
+          "rows": 3,
+          "icon": "Target"
+        }
+      ]
+    },
+
+    {
+      "fields": [
+        {
+          "type": "dropdown",
+          "name": "tone",
+          "label": "Writing Style & Tone",
+          "icon": "Sparkles",
+          "options": [
+            {
+              "id": "professional",
+              "label": "Professional",
+              "icon": "👔",
+              "description": "Formal and business-oriented tone"
+            },
+            {
+              "id": "casual",
+              "label": "Casual",
+              "icon": "😊",
+              "description": "Friendly and conversational style"
+            },
+            {
+              "id": "persuasive",
+              "label": "Persuasive",
+              "icon": "🎯",
+              "description": "Compelling and action-oriented"
+            },
+            {
+              "id": "informative",
+              "label": "Informative",
+              "icon": "📚",
+              "description": "Educational and detailed approach"
+            }
+          ]
+        },
+        {
+          "type": "buttonGroup",
+          "name": "titleLength",
+          "label": "Title Length",
+          "options": [
+            { "id": "short", "label": "Short", "words": "5-8" },
+            { "id": "medium", "label": "Medium", "words": "8-12" },
+            { "id": "long", "label": "Long", "words": "12-15" }
+          ]
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "type": "dropdown",
+          "name": "industry",
+          "label": "Target Industry",
+          "icon": "Building2",
+          "options": [
+            { "id": "technology", "label": "Technology" },
+            { "id": "marketing", "label": "Marketing" },
+            { "id": "healthcare", "label": "Healthcare" },
+            { "id": "finance", "label": "Finance" },
+            { "id": "education", "label": "Education" },
+            { "id": "ecommerce", "label": "E-commerce" },
+            { "id": "real_estate", "label": "Real Estate" },
+            { "id": "travel", "label": "Travel" },
+            { "id": "food_beverage", "label": "Food & Beverage" },
+            { "id": "fashion", "label": "Fashion" }
+          ]
+        },
+        {
+          "type": "buttonGroup",
+          "name": "titleCount",
+          "label": "Number of Variations",
+          "options": [
+            { "value": 3, "label": "3 titles" },
+            { "value": 5, "label": "5 titles" },
+            { "value": 10, "label": "10 titles" }
+          ]
+        }
+      ]
+    }
+  ],
+  "submitButton": {
+    "label": "Generate AI-Powered Titles",
+    "loadingLabel": "Generating Titles...",
+    "icon": "Wand2",
+    "loadingIcon": "RefreshCw"
+  }
+}

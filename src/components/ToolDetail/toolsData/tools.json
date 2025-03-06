@@ -1,0 +1,123 @@
+{
+  "id": "blogWriterPro001",
+  "rows": [
+    {
+      "fields": [
+        {
+          "icon": "PenTool",
+          "name": "blogTitle",
+          "type": "text",
+          "label": "Blog Title",
+          "placeholder": "E.g., The Future of Remote Work in Tech"
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "icon": "Target",
+          "name": "blogTopic",
+          "rows": 3,
+          "size": "h-20",
+          "type": "textarea",
+          "label": "Blog Topic",
+          "placeholder": "What is your blog post about? E.g., The evolving impact of AI on digital marketing strategies"
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "icon": "Search",
+          "name": "seoKeywords",
+          "rows": 2,
+          "size": "h-16",
+          "type": "textarea",
+          "label": "SEO Keywords",
+          "placeholder": "Enter keywords separated by commas, e.g., SEO, digital marketing, AI trends"
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "icon": "Sparkles",
+          "name": "tone",
+          "type": "dropdown",
+          "label": "Writing Tone",
+          "options": [
+            {
+              "id": "professional",
+              "icon": "👔",
+              "label": "Professional",
+              "description": "Formal and business-oriented tone"
+            },
+            {
+              "id": "casual",
+              "icon": "😊",
+              "label": "Casual",
+              "description": "Friendly and conversational style"
+            },
+            {
+              "id": "creative",
+              "icon": "🎨",
+              "label": "Creative",
+              "description": "Innovative and engaging style"
+            },
+            {
+              "id": "informative",
+              "icon": "📚",
+              "label": "Informative",
+              "description": "Educational and detailed approach"
+            }
+          ]
+        },
+        {
+          "icon": "Clock",
+          "name": "contentLength",
+          "type": "buttonGroup",
+          "label": "Content Length",
+          "options": [
+            {
+              "id": "short",
+              "label": "Short",
+              "words": "300-500 words"
+            },
+            {
+              "id": "medium",
+              "label": "Medium",
+              "words": "500-800 words"
+            },
+            {
+              "id": "long",
+              "label": "Long",
+              "words": "800-1500 words"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "icon": "Calendar",
+          "name": "publishDate",
+          "type": "date",
+          "label": "Schedule Publish Date",
+          "placeholder": "Select a date"
+        }
+      ]
+    }
+  ],
+  "category": "Blog Tools",
+  "formTitle": "SEO Blog Writer Pro",
+  "headerIcon": "FileText",
+  "description": "Create SEO-optimized blog content instantly",
+  "subcategory": "Content Generation",
+  "submitButton": {
+    "icon": "Wand2",
+    "label": "Generate Blog Post",
+    "loadingIcon": "RefreshCw",
+    "loadingLabel": "Generating your content..."
+  }
+}
