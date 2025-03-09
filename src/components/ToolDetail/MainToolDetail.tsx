@@ -4,6 +4,7 @@ import axios from "axios";
 import ToolGenerator from "../ToolDetail/Generator/ToolGenerator";
 import VisualEditor from "./VisualEditor/VisualEditor";
 import { RefreshCw, ArrowLeft } from "lucide-react";
+import { Tool } from "../types/Model/Tools/Tools";
 
 // Define interfaces for the data structures
 interface GeneratedResult {
@@ -23,9 +24,10 @@ interface GeneratedTitle {
 
 interface MainToolProps {
   toolId: string;
+  template: JSON;
 }
 
-const MainToolDetail: React.FC<MainToolProps> = ({ toolId }) => {
+const MainToolDetail: React.FC<MainToolProps> = ({ toolId, template }) => {
   // State to store generated results from the tool generator
   const [generatedContent, setGeneratedContent] = useState<GeneratedTitle[]>(
     []
@@ -116,7 +118,7 @@ const MainToolDetail: React.FC<MainToolProps> = ({ toolId }) => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 p-6">
       {/* Header Actions */}
       <div className="flex justify-between items-center">
         {/* Back Button */}
@@ -144,9 +146,9 @@ const MainToolDetail: React.FC<MainToolProps> = ({ toolId }) => {
           <ToolGenerator
             toolId={toolId}
             onSubmit={handleToolSubmit}
-            apiEndpoint="http://localhost:3001/tool"
             className={hasGenerated ? "opacity-70 pointer-events-none" : ""}
-            isLoading={isLoading}
+            //isLoading={isLoading}
+            //  template={template}
           />
         </div>
         <div className="lg:w-1/2">

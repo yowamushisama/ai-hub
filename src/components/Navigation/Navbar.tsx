@@ -109,7 +109,8 @@ export default function Navbar() {
   if (
     pathname.startsWith("/dashboard") ||
     pathname.startsWith("/tool") ||
-    pathname.startsWith("/mindmap")
+    pathname.startsWith("/mindmap") ||
+    pathname.startsWith("/image")
   ) {
     return null;
   }

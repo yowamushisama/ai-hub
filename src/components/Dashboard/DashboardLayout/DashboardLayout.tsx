@@ -15,6 +15,7 @@ import {
   Search,
   Sparkles,
   Zap,
+  BrainCircuit,
 } from "lucide-react";
 
 // Primary Navigation Items

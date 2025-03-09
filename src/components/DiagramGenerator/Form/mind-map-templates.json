@@ -1,0 +1,209 @@
+{
+  "id": "mindmap-brainstorm-001",
+  "title": "AI-Powered Brainstorming",
+  "headerIcon": "BrainCircuit",
+  "description": "Generate comprehensive mind maps to explore and organize your ideas",
+  "sections": [
+    {
+      "id": "main-details",
+      "title": "Main Topic Details",
+      "icon": "FileText",
+      "defaultOpen": true,
+      "fields": [
+        {
+          "type": "textarea",
+          "name": "mainTopic",
+          "label": "Main Topic or Concept",
+          "placeholder": "Enter the central idea or topic you want to brainstorm",
+          "size": "h-20",
+          "rows": 2,
+          "icon": "Zap",
+          "required": true,
+          "helpText": "This will become the central node in your mind map"
+        },
+        {
+          "type": "textarea",
+          "name": "contextDescription",
+          "label": "Additional Context or Goals",
+          "placeholder": "Describe any specific aspects, directions, or goals you want to explore",
+          "size": "h-32",
+          "rows": 4,
+          "icon": "Layers",
+          "helpText": "Provide details to help the AI understand the scope and purpose of your brainstorming session"
+        }
+      ]
+    },
+    {
+      "id": "approach",
+      "title": "Brainstorming Approach",
+      "icon": "Lightbulb",
+      "defaultOpen": false,
+      "fields": [
+        {
+          "type": "dropdown",
+          "name": "brainstormApproach",
+          "label": "Select an approach",
+          "icon": "Lightbulb",
+          "options": [
+            {
+              "id": "expansive",
+              "label": "Expansive Thinking",
+              "icon": "Sparkles",
+              "description": "Generate a wide range of diverse ideas and possibilities"
+            },
+            {
+              "id": "analytical",
+              "label": "Analytical Breakdown",
+              "icon": "Network",
+              "description": "Systematically analyze different aspects of the topic"
+            },
+            {
+              "id": "problem_solving",
+              "label": "Problem Solving",
+              "icon": "Zap",
+              "description": "Identify challenges and potential solutions"
+            },
+            {
+              "id": "creative",
+              "label": "Creative Exploration",
+              "icon": "Lightbulb",
+              "description": "Focus on innovative and unconventional connections"
+            }
+          ],
+          "defaultValue": "expansive"
+        }
+      ]
+    },
+    {
+      "id": "structure",
+      "title": "Map Structure & Complexity",
+      "icon": "Network",
+      "defaultOpen": false,
+      "fields": [
+        {
+          "type": "buttonGroup",
+          "name": "complexity",
+          "label": "Map Complexity",
+          "icon": "Network",
+          "layout": "horizontal",
+          "options": [
+            {
+              "id": "simple",
+              "label": "Simple",
+              "description": "5-10 nodes, focused on key ideas"
+            },
+            {
+              "id": "moderate",
+              "label": "Moderate",
+              "description": "10-20 nodes with some depth"
+            },
+            {
+              "id": "detailed",
+              "label": "Detailed",
+              "description": "20-30 nodes with comprehensive coverage"
+            }
+          ],
+          "defaultValue": "moderate"
+        },
+        {
+          "type": "dropdown",
+          "name": "perspective",
+          "label": "Perspective",
+          "icon": "Users",
+          "options": [
+            {
+              "id": "neutral",
+              "label": "Neutral",
+              "icon": "Users",
+              "description": "Balanced viewpoint"
+            },
+            {
+              "id": "innovative",
+              "label": "Innovative",
+              "icon": "Lightbulb",
+              "description": "Focus on new and emerging ideas"
+            },
+            {
+              "id": "practical",
+              "label": "Practical",
+              "icon": "Zap",
+              "description": "Emphasis on feasible implementation"
+            },
+            {
+              "id": "critical",
+              "label": "Critical",
+              "icon": "Eye",
+              "description": "Evaluate strengths and weaknesses"
+            }
+          ],
+          "defaultValue": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "visual",
+      "title": "Visual Styling",
+      "icon": "Palette",
+      "defaultOpen": false,
+      "fields": [
+        {
+          "type": "buttonGroup",
+          "name": "nodeStyle",
+          "label": "Node Style",
+          "layout": "horizontal",
+          "options": [
+            {
+              "id": "professional",
+              "label": "Professional",
+              "description": "Clean, formal design for business applications"
+            },
+            {
+              "id": "creative",
+              "label": "Creative",
+              "description": "Colorful, expressive design for ideation"
+            },
+            {
+              "id": "minimal",
+              "label": "Minimal",
+              "description": "Simple, uncluttered design for clarity"
+            }
+          ],
+          "defaultValue": "professional"
+        },
+        {
+          "type": "toggle",
+          "name": "includeDescriptions",
+          "label": "Include node descriptions",
+          "helpText": "Add detailed descriptions to each node for better context",
+          "defaultValue": true
+        }
+      ]
+    }
+  ],
+  "examplePrompts": [
+    "Digital marketing strategies for small businesses",
+    "Career development paths in software engineering",
+    "Sustainable living practices for urban environments",
+    "Product launch plan for a mobile application",
+    "Personal health and wellness improvement strategies"
+  ],
+  "submitButton": {
+    "label": "Generate Mind Map",
+    "loadingLabel": "Generating Your Mind Map...",
+    "icon": "Cpu",
+    "loadingIcon": "RefreshCw"
+  },
+  "tipText": {
+    "title": "Pro tip:",
+    "content": "After generation, you can further refine your mind map by adding, editing, or removing nodes and connections directly in the canvas."
+  },
+  "styling": {
+    "colors": {
+      "primary": "var(--primary-600)",
+      "secondary": "var(--secondary-600)",
+      "accent": "var(--accent-600)"
+    },
+    "borderRadius": "0.75rem",
+    "headerGradient": "from-primary-50 to-white"
+  }
+}

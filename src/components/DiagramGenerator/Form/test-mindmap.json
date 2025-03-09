@@ -1,0 +1,197 @@
+{
+  "id": "mind-map-generator",
+  "title": "AI Mind Map Generator",
+  "description": "Create comprehensive mind maps with AI assistance",
+  "headerIcon": "Network",
+  "sections": [
+    {
+      "id": "main-content",
+      "title": "Mind Map Content",
+      "icon": "BrainCircuit",
+      "description": "Define the main topic and context for your mind map",
+      "defaultOpen": true,
+      "fields": [
+        {
+          "type": "input",
+          "name": "mainTopic",
+          "label": "Main Topic",
+          "icon": "Target",
+          "placeholder": "Enter the central topic of your mind map",
+          "required": true,
+          "helpText": "This will be the central node of your mind map"
+        },
+        {
+          "type": "textarea",
+          "name": "contextDescription",
+          "label": "Additional Context",
+          "icon": "FileText",
+          "placeholder": "Provide any context or details about your topic",
+          "rows": 3,
+          "helpText": "Adding context helps generate more relevant subtopics"
+        }
+      ]
+    },
+    {
+      "id": "generation-options",
+      "title": "Generation Options",
+      "icon": "Settings",
+      "defaultOpen": false,
+      "fields": [
+        {
+          "type": "buttonGroup",
+          "name": "brainstormApproach",
+          "label": "Brainstorming Approach",
+          "icon": "Lightbulb",
+          "defaultValue": "expansive",
+          "options": [
+            {
+              "id": "expansive",
+              "label": "Expansive",
+              "description": "Broad range of diverse ideas"
+            },
+            {
+              "id": "focused",
+              "label": "Focused",
+              "description": "Concentrated on specific aspects"
+            },
+            {
+              "id": "analytical",
+              "label": "Analytical",
+              "description": "Logical breakdown of components"
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "complexity",
+          "label": "Mind Map Complexity",
+          "icon": "Layers",
+          "defaultValue": "moderate",
+          "options": [
+            {
+              "id": "simple",
+              "label": "Simple",
+              "icon": "CircleDot",
+              "description": "Few nodes with basic relationships"
+            },
+            {
+              "id": "moderate",
+              "label": "Moderate",
+              "icon": "Network",
+              "description": "Balanced number of nodes and connections"
+            },
+            {
+              "id": "complex",
+              "label": "Complex",
+              "icon": "NetworkComplex",
+              "description": "Comprehensive with multiple levels and connections"
+            }
+          ]
+        },
+        {
+          "type": "slider",
+          "name": "nodeCount",
+          "label": "Approximate Node Count",
+          "icon": "CircleDot",
+          "min": 5,
+          "max": 25,
+          "step": 5,
+          "defaultValue": 15,
+          "helpText": "Estimated number of nodes in the generated mind map"
+        }
+      ]
+    },
+    {
+      "id": "appearance",
+      "title": "Appearance Settings",
+      "icon": "Palette",
+      "defaultOpen": false,
+      "fields": [
+        {
+          "type": "dropdown",
+          "name": "nodeStyle",
+          "label": "Node Style",
+          "icon": "Square",
+          "defaultValue": "professional",
+          "options": [
+            {
+              "id": "professional",
+              "label": "Professional",
+              "icon": "Briefcase",
+              "description": "Clean and formal style"
+            },
+            {
+              "id": "creative",
+              "label": "Creative",
+              "icon": "Paintbrush",
+              "description": "Colorful and artistic style"
+            },
+            {
+              "id": "minimal",
+              "label": "Minimal",
+              "icon": "CircleOff",
+              "description": "Simple and clean design"
+            }
+          ]
+        },
+        {
+          "type": "buttonGroup",
+          "name": "perspective",
+          "label": "Content Perspective",
+          "icon": "Eye",
+          "defaultValue": "neutral",
+          "layout": "horizontal",
+          "options": [
+            {
+              "id": "educational",
+              "label": "Educational"
+            },
+            {
+              "id": "neutral",
+              "label": "Neutral"
+            },
+            {
+              "id": "business",
+              "label": "Business"
+            }
+          ]
+        },
+        {
+          "type": "toggle",
+          "name": "includeDescriptions",
+          "label": "Include Node Descriptions",
+          "icon": "FileText",
+          "defaultValue": true,
+          "helpText": "Add brief explanations to each node"
+        }
+      ]
+    }
+  ],
+  "examplePrompts": [
+    "Digital Marketing Strategies",
+    "Climate Change Solutions",
+    "Mobile App Development Process",
+    "Personal Development Goals",
+    "Project Management Framework",
+    "Artificial Intelligence Applications"
+  ],
+  "submitButton": {
+    "label": "Generate Mind Map",
+    "icon": "Sparkles",
+    "loadingLabel": "Generating...",
+    "loadingIcon": "RefreshCw"
+  },
+  "tipText": {
+    "title": "Expert Tip:",
+    "content": "For the best results, provide a specific main topic rather than a broad category. You can edit the generated mind map afterward."
+  },
+  "styling": {
+    "colors": {
+      "primary": "var(--primary-600)",
+      "secondary": "var(--secondary-600)",
+      "accent": "var(--accent-500)"
+    },
+    "borderRadius": "0.75rem",
+    "headerGradient": "from-primary-50 to-white"
+  }
+}

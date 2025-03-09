@@ -14,6 +14,23 @@ import {
   RefreshCw,
 } from "lucide-react";
 // Define proper types for our data
+export interface ToolDetail {
+  id: number;
+  details: JSON;
+  tool: Tool;
+}
+export interface ToolInfo {
+  id: number;
+  name: string;
+  subcategory: {
+    id: number;
+    name: string;
+  };
+  category: {
+    id: number;
+    name: string;
+  };
+}
 export interface Tool {
   id: number;
   name: string;
@@ -30,6 +47,8 @@ export interface Tool {
     views: string;
     likes: string;
   };
+  category: Category; // Reference to the category
+  subcategory: Subcategory; // Reference to the subcategory
 }
 
 // Type definitions
@@ -84,4 +103,22 @@ export interface ToolConfig {
   };
   resultTitle?: string;
   resultDescription?: string;
+}
+export interface Subcategory {
+  id: number;
+  category_id: number; // Foreign key referencing Category
+  name: string;
+  description: string;
+  created_at?: string;
+  updated_at?: string;
+  category: Category; // Reference back to Category (optional)
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  description: string;
+  created_at?: string;
+  updated_at?: string;
+  subcategories?: Subcategory[]; // Array of subcategories
 }

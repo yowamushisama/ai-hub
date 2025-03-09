@@ -19,7 +19,7 @@ export interface EdgeData {
 }
 
 // Extend the React Flow Node type with our custom data
-export interface MindMapNode extends Node {
+export interface MindMapNode extends Node<NodeData> {
   data: NodeData;
 }
 

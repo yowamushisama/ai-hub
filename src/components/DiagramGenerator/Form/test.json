@@ -1,0 +1,62 @@
+{
+  "title": "AI-Powered Brainstorming",
+  "styling": {
+    "colors": {
+      "accent": "var(--accent-600)",
+      "primary": "var(--primary-600)",
+      "secondary": "var(--secondary-600)"
+    },
+    "borderRadius": "0.75rem",
+    "headerGradient": "from-primary-50 to-white"
+  },
+  "tipText": {
+    "title": "Pro tip:",
+    "content": "After generation, you can further refine your mind map by adding, editing, or removing nodes and connections directly in the canvas."
+  },
+  "sections": [
+    {
+      "id": "main-details",
+      "icon": "FileText",
+      "title": "Main Topic Details",
+      "fields": [
+        {
+          "icon": "Zap",
+          "name": "mainTopic",
+          "rows": 2,
+          "size": "h-20",
+          "type": "textarea",
+          "label": "Main Topic or Concept",
+          "helpText": "This will become the central node in your mind map",
+          "required": true,
+          "placeholder": "Enter the central idea or topic you want to brainstorm"
+        },
+        {
+          "icon": "Layers",
+          "name": "contextDescription",
+          "rows": 4,
+          "size": "h-32",
+          "type": "textarea",
+          "label": "Additional Context or Goals",
+          "helpText": "Provide details to help the AI understand the scope and purpose of your brainstorming session",
+          "placeholder": "Describe any specific aspects, directions, or goals you want to explore"
+        }
+      ],
+      "defaultOpen": true
+    }
+  ],
+  "headerIcon": "BrainCircuit",
+  "description": "Generate comprehensive mind maps to explore and organize your ideas",
+  "submitButton": {
+    "icon": "Cpu",
+    "label": "Generate Mind Map",
+    "loadingIcon": "RefreshCw",
+    "loadingLabel": "Generating Your Mind Map..."
+  },
+  "examplePrompts": [
+    "Digital marketing strategies for small businesses",
+    "Career development paths in software engineering",
+    "Sustainable living practices for urban environments",
+    "Product launch plan for a mobile application",
+    "Personal health and wellness improvement strategies"
+  ]
+}

@@ -12,6 +12,7 @@ import {
   Crown,
   Zap,
   Search,
+  BrainCircuit,
 } from "lucide-react";
 import PrimaryNavigation from "../Navigation/PrimaryNavigation/PrimaryNavigation";
 import SecondaryNavigation from "../Navigation/SecondaryNavigation";
@@ -44,7 +45,7 @@ const popularTools = [
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("text");
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 

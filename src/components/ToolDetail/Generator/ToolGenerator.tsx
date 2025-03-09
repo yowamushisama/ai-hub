@@ -9,36 +9,31 @@ export interface ToolGeneratorProps {
   toolId: string;
   config?: ToolConfig;
   onSubmit?: (formData: Record<string, any>) => Promise<GeneratedResult[]>;
-  className?: string;
-  apiEndpoint?: string;
-  isLoading?: boolean; // Added prop to control loading state
-  forceDisable?: boolean;
+  className: any;
 }
 
 const ToolGenerator: React.FC<ToolGeneratorProps> = ({
   toolId,
   config: providedConfig,
   onSubmit: providedSubmitHandler,
-  className = "",
-  apiEndpoint = "http://localhost:3001/tool",
-  isLoading = false, // Default value for isLoading
+  className,
 }) => {
   // State
   const [config, setConfig] = useState<ToolConfig | null>(null);
-  const [isConfigLoading, setIsConfigLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [generatedResults, setGeneratedResults] = useState<GeneratedResult[]>(
     []
   );
-  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   // Fetch tool configuration if not provided
   useEffect(() => {
-    setIsConfigLoading(true);
+    setIsLoading(true);
 
     if (providedConfig) {
       setConfig(providedConfig);
-      setIsConfigLoading(false);
+      setIsLoading(false);
     } else {
       fetchToolConfig();
     }
@@ -47,8 +42,10 @@ const ToolGenerator: React.FC<ToolGeneratorProps> = ({
   // Fetch tool configuration from API
   const fetchToolConfig = async () => {
     try {
-      setIsConfigLoading(true);
-      const response = await axios.get(`${apiEndpoint}s/detail/${toolId}`);
+      setIsLoading(true);
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/tools/detail/${toolId}`
+      );
       const data = response.data;
 
       // Handle different possible API response structures
@@ -107,43 +104,55 @@ const ToolGenerator: React.FC<ToolGeneratorProps> = ({
           : "Failed to load tool configuration"
       );
     } finally {
-      setIsConfigLoading(false);
+      setIsLoading(false);
     }
   };
 
   // Handle form submission
-  // Create a wrapper function that returns void to match ToolForm's expected type
-  const handleFormSubmit = async (
-    formData: Record<string, any>
-  ): Promise<void> => {
+  const handleSubmit = async (formData: Record<string, any>) => {
+    setIsGenerating(true);
+
     try {
-      setHasSubmitted(true);
+      let results: GeneratedResult[];
 
       if (providedSubmitHandler) {
         // Use provided submission handler if available
-        const results = await providedSubmitHandler(formData);
-        setGeneratedResults(results);
+        results = await providedSubmitHandler(formData);
       } else {
         // Default API call
         const response = await axios.post(
-          `${apiEndpoint}/${toolId}/generate`,
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${toolId}/generate`,
           formData
         );
-        const results = response.data.results || [];
-        setGeneratedResults(results);
+        results = response.data.results || [];
       }
+
+      setGeneratedResults(results);
     } catch (error) {
       console.error("Error generating results:", error);
       // Optionally, you could set an error state here and display it to the user
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  // Handle copying text to clipboard
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      // Optional: Show success message
+    } catch (error) {
+      console.error("Failed to copy text:", error);
+      // Optional: Show error message
     }
   };
 
   // Render loading skeleton
-  if (isConfigLoading) {
+  if (isLoading) {
     return (
       <div
         className={`max-w-xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-neutral-200 ${className}`}
-        style={{ minHeight: "600px", height: "auto" }}
+        style={{ minHeight: "600px", height: "auto", minWidth: "34rem" }}
       >
         {/* Header Skeleton */}
         <div className="p-6 bg-gradient-to-r from-neutral-50 to-neutral-100 border-b border-neutral-200">
@@ -239,9 +248,8 @@ const ToolGenerator: React.FC<ToolGeneratorProps> = ({
       {/* Tool Form */}
       <ToolForm
         config={config}
-        onSubmit={handleFormSubmit}
-        isLoading={isLoading}
-        forceDisable={hasSubmitted}
+        onSubmit={handleSubmit}
+        isLoading={isGenerating}
       />
     </div>
   );

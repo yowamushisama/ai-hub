@@ -15,6 +15,7 @@ import {
   Search,
   AlertCircle,
   RefreshCw,
+  BrainCircuit,
 } from "lucide-react";
 import axios from "axios";
 import Link from "next/link";
@@ -28,6 +29,7 @@ export const iconMap = {
   Code: <Code className="w-5 h-5" />,
   Search: <Search className="w-5 h-5" />,
   Bot: <Bot className="w-5 h-5" />,
+  BrainCircuit: <BrainCircuit className="w-5 h-5" />,
 };
 interface AIToolsCollectionProps {
   isCollapsed?: boolean;

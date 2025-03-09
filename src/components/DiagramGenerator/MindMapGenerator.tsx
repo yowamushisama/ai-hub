@@ -1,6 +1,5 @@
 "use client";
-// src/components/DiagramGenerator/MindMapGenerator.tsx
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import ReactFlow, {
   ReactFlowProvider,
   MiniMap,
@@ -12,15 +11,15 @@ import ReactFlow, {
   Connection,
   Edge,
   Node,
-  NodeChange,
-  EdgeChange,
   ConnectionLineType,
   Panel,
 } from "reactflow";
 import "reactflow/dist/style.css";
+import { Sparkles } from "lucide-react";
 
+// Import components
 import MindMapToolbar from "./components/MindMapToolbar";
-import MindMapForm from "./MindMapForm";
+import MindMapForm from "./Form/MindMapContainer";
 import CustomNode from "./components/CustomNode";
 import CustomEdge from "./components/CustomEdge";
 import ThemeSelector from "./components/ThemeSelector";
@@ -28,6 +27,10 @@ import ShareExportPanel from "./components/ShareExportPanel";
 import { generateUniqueId } from "./MindMap/utlis/helpers";
 import { ThemeProvider, MindMapTheme } from "./ThemeContext";
 import { initialNodes, initialEdges } from "./data/initialData";
+import templateData from "./Form/mind-map-templates.json";
+
+import axios from "axios";
+import { MindMapConfig } from "../types/Model/MindMapTypes";
 
 // Node data structure
 interface NodeData {
@@ -43,24 +46,17 @@ interface MindMapNode extends Node {
   data: NodeData;
 }
 
-// Extend the React Flow Edge type with our custom data
-interface MindMapEdge extends Edge {
-  data?: {
-    label?: string;
-  };
-}
-
-// Node types
 const nodeTypes = {
   customNode: CustomNode,
 };
 
-// Edge types
 const edgeTypes = {
   customEdge: CustomEdge,
 };
-
-const MindMapGenerator: React.FC = () => {
+interface MindMapGeneratorProps {
+  toolId: string;
+}
+const MindMapGenerator: React.FC<MindMapGeneratorProps> = ({ toolId }) => {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -69,7 +65,19 @@ const MindMapGenerator: React.FC = () => {
   const [selectedEdge, setSelectedEdge] = useState<Edge | null>(null);
   const [currentTheme, setCurrentTheme] = useState<MindMapTheme>("default");
   const [isExportPanelOpen, setIsExportPanelOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Set loading state to false once the ReactFlow instance is ready
+  useEffect(() => {
+    if (reactFlowInstance) {
+      // setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 200);
+    }
+  }, [reactFlowInstance]);
+
+  //const template = await axios.get(`${process.env.API_ENDPOINT}`);
   // Handle new connections
   const onConnect = useCallback(
     (params: Connection) => {
@@ -158,33 +166,13 @@ const MindMapGenerator: React.FC = () => {
     [setNodes]
   );
 
-  // Update edge data when modified
-  const onUpdateEdgeData = useCallback(
-    (id: string, data: any) => {
-      setEdges((eds) =>
-        eds.map((edge) => {
-          if (edge.id === id) {
-            return {
-              ...edge,
-              ...data,
-            };
-          }
-          return edge;
-        })
-      );
-    },
-    [setEdges]
-  );
-
-  // Delete node
+  // Delete node and its connected edges
   const onDeleteNode = useCallback(
     (nodeId: string) => {
       setNodes((nds) => nds.filter((node) => node.id !== nodeId));
-      // Also delete any edges connected to this node
       setEdges((eds) =>
         eds.filter((edge) => edge.source !== nodeId && edge.target !== nodeId)
       );
-
       if (selectedNode?.id === nodeId) {
         setSelectedNode(null);
       }
@@ -224,7 +212,6 @@ const MindMapGenerator: React.FC = () => {
         "application/reactflow/shape"
       );
 
-      // Check if the dropped element is valid
       if (!nodeType || typeof nodeType !== "string") return;
 
       const position = reactFlowInstance.project({
@@ -241,7 +228,13 @@ const MindMapGenerator: React.FC = () => {
           description: "",
           color: nodeColor || "var(--primary-600)",
           fontSize: "medium",
-          shape: nodeShape || "rounded",
+          shape:
+            (nodeShape as
+              | "rounded"
+              | "rectangle"
+              | "pill"
+              | "diamond"
+              | "hexagon") || "rounded",
         },
       };
 
@@ -250,11 +243,79 @@ const MindMapGenerator: React.FC = () => {
     [reactFlowInstance, setNodes]
   );
 
+  // Bulk adding nodes
+  const onBulkAddNodes = useCallback(
+    (newNodes: Node[]) => {
+      setNodes((nds) => [...nds, ...newNodes]);
+    },
+    [setNodes]
+  );
+
+  // Bulk adding edges
+  const onBulkAddEdges = useCallback(
+    (newEdges: Edge[]) => {
+      setEdges((eds) => [...eds, ...newEdges]);
+    },
+    [setEdges]
+  );
+
+  // Clear the canvas
+  const onClearCanvas = useCallback(() => {
+    setNodes([]);
+    setEdges([]);
+    setSelectedNode(null);
+    setSelectedEdge(null);
+  }, [setNodes, setEdges]);
+
+  // Loading screen component
+  const LoadingScreen = () => (
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-white bg-opacity-90">
+      <div className="flex flex-col items-center">
+        <div className="bg-gradient-to-r from-primary-600 to-secondary-600 p-4 rounded-full mb-4 animate-pulse">
+          <Sparkles className="w-12 h-12 text-white" />
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="w-6 h-6 rounded-full border-4 border-primary-600 border-r-transparent animate-spin" />
+          <h2 className="text-xl font-bold text-primary-600">
+            Loading Mind Map Creator...
+          </h2>
+        </div>
+        <div className="mt-4 bg-gradient-to-r from-primary-600 via-secondary-600 to-primary-600 h-1.5 w-56 rounded-full overflow-hidden">
+          <div className="h-full bg-white/20 animate-pulse"></div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Sidebar skeleton loading component
+  const SidebarSkeleton = () => (
+    <div className="w-64 border-r border-neutral-200 bg-white p-4">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-lg bg-neutral-200 animate-pulse"></div>
+        <div>
+          <div className="h-5 w-32 bg-neutral-200 rounded animate-pulse"></div>
+          <div className="h-3 w-24 bg-neutral-200 rounded animate-pulse mt-2"></div>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="h-10 bg-neutral-200 rounded-lg animate-pulse"></div>
+        <div className="h-24 bg-neutral-200 rounded-lg animate-pulse"></div>
+        <div className="h-10 bg-neutral-200 rounded-lg animate-pulse"></div>
+        <div className="h-10 bg-neutral-200 rounded-lg animate-pulse"></div>
+        <div className="h-36 bg-neutral-200 rounded-lg animate-pulse"></div>
+      </div>
+    </div>
+  );
+
   return (
     <ThemeProvider currentTheme={currentTheme} onChangeTheme={setCurrentTheme}>
       <div className="flex flex-col w-full h-screen bg-white">
+        {isLoading && <LoadingScreen />}
+
+        {/* Toolbar with Back to Dashboard button integrated */}
         <MindMapToolbar
-          onAddNode={() => {}} // Now handled by the form
+          onAddNode={() => {}}
           onDeleteSelected={onDeleteSelected}
           onExport={() => setIsExportPanelOpen(true)}
           canDelete={Boolean(selectedNode || selectedEdge)}
@@ -262,16 +323,24 @@ const MindMapGenerator: React.FC = () => {
 
         <div className="flex flex-1 overflow-hidden">
           {/* Left side form */}
-          <MindMapForm
-            nodes={nodes}
-            edges={edges}
-            selectedNode={selectedNode}
-            onNodeAdd={onAddNode}
-            onNodeUpdate={onUpdateNodeData}
-            onNodeDelete={onDeleteNode}
-            onNodeSelect={onNodeSelect}
-            onCreateEdge={onCreateEdge}
-          />
+          {isLoading ? (
+            <SidebarSkeleton />
+          ) : (
+            <MindMapForm
+              nodes={nodes}
+              edges={edges}
+              selectedNode={selectedNode}
+              onNodeAdd={onAddNode}
+              onNodeUpdate={onUpdateNodeData}
+              onNodeDelete={onDeleteNode}
+              onNodeSelect={onNodeSelect}
+              onCreateEdge={onCreateEdge}
+              onBulkAddNodes={onBulkAddNodes}
+              onBulkAddEdges={onBulkAddEdges}
+              onClearCanvas={onClearCanvas}
+              toolId={toolId}
+            />
+          )}
 
           {/* Right side editor */}
           <div className="flex-1 h-full" ref={reactFlowWrapper}>
