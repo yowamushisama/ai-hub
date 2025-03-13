@@ -20,7 +20,7 @@ const ToolDetailPage: React.FC<ToolDetailPageProps> = async ({ params }) => {
     `${process.env.NEXT_PUBLIC_API_ENDPOINT}/tools/info/${id}`
   );
   const toolData = response.data;
-  const category = toolData.category.name;
+  const category = toolData.category.name.toLowerCase();
   console.log("toolData", toolData);
 
   console.log("category", category);

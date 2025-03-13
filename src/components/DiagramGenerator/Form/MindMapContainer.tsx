@@ -6,6 +6,8 @@ import { generateUniqueId } from "../MindMap/utlis/helpers";
 import SidebarHeader from "./SidebarHeader";
 import SidebarTabs from "./SidebarTabs";
 import SidebarContent from "./SidebarContent";
+import { processAndLayoutMindMap } from "../dagres/MindMapLayout";
+
 import {
   MindMapConfig,
   ToolMindMapTemplateResponse,
@@ -229,39 +231,63 @@ const MindMapForm: React.FC<MindMapFormProps> = ({
     setConnectionData({ source: "", target: "" });
   };
 
+  // Main function to process API response and add nodes/edges to the mindmap
   const handleGenerateMindMap = async () => {
     const mainTopicValue = aiFormValues.mainTopic;
+
     if (!mainTopicValue?.trim()) {
       setGenerationError("Please provide a main topic for your mindmap");
       return;
     }
+
     if (!onBulkAddNodes || !onBulkAddEdges || !onClearCanvas) {
       setGenerationError("Bulk operations are not supported");
       return;
     }
+
     setGenerationError(null);
     setIsGenerating(true);
+
     try {
+      // Make API request to generate mindmap
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/mindmap/generate/${toolId}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/tool/${toolId}/generate`,
         {
           ...aiFormValues,
         }
       );
+
+      // Validate response structure
       if (!response.data?.nodes || !response.data?.edges) {
         throw new Error("Invalid API response structure");
       }
+
+      console.log("API response:", response.data);
+
+      // Process the nodes and edges using Dagre layout
+      const { nodes: layoutedNodes, edges: layoutedEdges } =
+        processAndLayoutMindMap(response.data.nodes, response.data.edges);
+
+      console.log("Layouted Nodes:", layoutedNodes);
+      console.log("Layouted Edges:", layoutedEdges);
+
+      // Clear the canvas and add the new nodes and edges
       onClearCanvas();
-      onBulkAddNodes(response.data.nodes);
-      onBulkAddEdges(response.data.edges);
+      onBulkAddNodes(layoutedNodes);
+      onBulkAddEdges(layoutedEdges);
+
+      // Set the active tab to view the result
+      setActiveTab("nodes");
     } catch (error) {
       console.error("Error generating mindmap:", error);
       let errorMessage = "Failed to generate mindmap. Please try again.";
+
       if (axios.isAxiosError(error)) {
         errorMessage = error.response?.data?.message || error.message;
       } else if (error instanceof Error) {
         errorMessage = error.message;
       }
+
       setGenerationError(errorMessage);
     } finally {
       setIsGenerating(false);
